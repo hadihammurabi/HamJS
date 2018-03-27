@@ -1,0 +1,15 @@
+exports.app = {
+  host: 'localhost',
+  port: 8080,
+  onInit({ host, port }) {
+    console.log(`<name> Listening on http://${host}:${port}`)
+  }
+}
+
+exports.db = {
+  driver  : 'mysql',    // database driver like mysql, mongodb, postgresql, or sqlite
+  host    : 'localhost',// database host like localhost, 127.0.0.1, 192.168.10.1, etc
+  username: 'root',     // database username
+  password: '',         // database password
+  database: '',         // database name
+}

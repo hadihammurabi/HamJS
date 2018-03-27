@@ -1,0 +1,16 @@
+{
+  "name": "HamJS",
+  "version": "1.0.0",
+  "description": "HamJS is framework for NodeJS application.",
+  "main": "index.js",
+  "author": "Hadi Hidayat Hammurabi <didikipb007@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon --exec yarn start"
+  },
+  "dependencies": {
+    "commander": "^2.15.1",
+    "express": "^4.16.3"
+  }
+}
