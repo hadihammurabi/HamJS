@@ -6,7 +6,8 @@ const valid = (struct, data) => {
   Object.keys(struct).forEach((fieldS) => {
     if (struct[fieldS].required) {
       if (!data[fieldS]) {
-        throw Error(' (!) Field yang required wajib diisi.')
+        if (Config.app.mode === 'dev')
+          throw Error(' (!) Field yang required wajib diisi.')
       }
       isValid = true
     }
@@ -33,17 +34,37 @@ module.exports = (model) => {
         })
         sql = sql.slice(0, -2)
         sql += ')'
-        db.query(sql, (err, result) => {
-          if (err) reject(err)
+        db.query(sql, (err, res) => {
+          if (err){
+            if (Config.app.mode === 'dev') reject(err)
+            else resolve()
+          }
           else {
-            result.sql = sql
-            resolve(result)
+            res.sql = sql
+            resolve(res)
           }
         })
       } else {
-        reject(' (!) Format data tidak sesuai definisi.')
+        if (Config.app.mode === 'dev')
+          reject(' (!) Format data tidak sesuai definisi.')
+        else resolve()
       }
     })
   }
+
+  model.prototype.all = () => new Promise((resolve, reject) => {
+    let sql = `SELECT * FROM ${model.name.toLowerCase()}`
+    db.query(sql, (err, res) => {
+      if (err){
+        if (Config.app.mode === 'dev') reject(err)
+        else resolve()
+      }
+      else {
+        console.log(sql)
+        resolve(res)
+      }
+    })
+  })
+
   return new model(require('./model'))
 }

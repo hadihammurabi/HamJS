@@ -23,6 +23,6 @@ exports.create = (name, oncreate) => {
   sql = sql.slice(0, -2)
   sql += `)`
   db.query(sql, (err, res) => {
-    if (err) throw err;
+    if (err) if (Config.app.mode === 'dev') throw err;
   })
 }
