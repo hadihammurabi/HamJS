@@ -1,10 +1,12 @@
 const router = require('./router')
+const mysql = require('mysql')
 let config = {}
 
 const setup = (config) => {
+  global.Config = require(`${config.root}/ham.config.js`)
   global.Controller = require('./controller')
   global.Model = require('./model')
-  global.Config = require(`${config.root}/ham.config.js`)
+  
   global.render = (view, data={}, status=200) => {
     if (typeof view === 'string')
       res.status(status).render(view, data)
