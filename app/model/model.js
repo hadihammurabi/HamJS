@@ -1,16 +1,4 @@
-const mysql = require('mysql')
-
-const connection = mysql.createConnection({
-  host: Config.db.host,
-  user: Config.db.username,
-  password: Config.db.password,
-  database: Config.db.database
-})
-
-connection.connect((err) => {
-  if (err) throw err;
-  console.log(' (*) Database connected.')
-})
+const db = require('./dbcontext')
 
 let struc = {}
 exports.create = (name, oncreate) => {
@@ -34,7 +22,7 @@ exports.create = (name, oncreate) => {
   })
   sql = sql.slice(0, -2)
   sql += `)`
-  connection.query(sql, (err, res) => {
+  db.query(sql, (err, res) => {
     if (err) throw err;
   })
 }

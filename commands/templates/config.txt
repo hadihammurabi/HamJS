@@ -1,6 +1,9 @@
 exports.app = {
   host: 'localhost',
   port: 8080,
+  defaults: {
+    controller: 'Home'
+  },
   onInit({ host, port }) {
     console.log(`<name> Listening on http://${host}:${port}`)
   }
