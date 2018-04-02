@@ -74,6 +74,16 @@ exports.generate = (type, name) => {
           fs.writeFileSync(`${root}/controllers/${name}.js`, data)
         })
       }
+    } else if (type === 'model') {
+      if (fs.existsSync(`${root}/models/${name}.js`)) {
+        console.log(` (!) Sudah ada model bernama ${name}.`)
+      } else {
+        console.log(` (+) Membuat model ${name}`)
+        fs.readFile(`${__dirname}/../templates/model.txt`, (err, data) => {
+          data = data.toString().replace(/<name>/g, name)
+          fs.writeFileSync(`${root}/models/${name}.js`, data)
+        })
+      }
     }
   } else
     console.log(' (!) Tidak dapat menemukan ham.config.js, bukan proyek HamJS.')

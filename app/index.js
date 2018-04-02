@@ -1,5 +1,4 @@
 const router = require('./router')
-const mysql = require('mysql')
 let config = {}
 
 const setup = (config) => {

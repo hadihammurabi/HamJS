@@ -1,18 +1,9 @@
-class User {
+class <name> {
   constructor (model) {
-    model.create('user', () => ({
-      username: {
-        type: String,
-        required: true,
-        max: 50,
-        unique: true
-      },
-      password: {
-        type: String,
-        required: true
-      }
-    }))
+    model.create({
+      // Struktur tabel di sini
+    })
   }
 }
 
-module.exports = User
+module.exports = <name>
