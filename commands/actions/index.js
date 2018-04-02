@@ -13,16 +13,26 @@ exports.create = (name) => {
       console.log('Membuat proyek baru.')
       
       fs.mkdir(`${name}/models`, () => {
-        console.log(' (+) Membuat models')
+        console.log(' (+) Membuat models/')
       })
       
       fs.mkdir(`${name}/views`, () => {
-        console.log(' (+) Membuat views')
+        console.log(' (+) Membuat views/')
+        fs.readFile(`${__dirname}/../templates/view.txt`, (err, data) => {
+          console.log(' (+) Membuat view/Home')
+          data = data.toString().replace(/<name>/g, 'Home')
+          fs.writeFileSync(`${name}/views/Home.ejs`, data)
+        })
+      })
+
+      fs.mkdir(`${name}/public`, () => {
+        console.log(' (+) Membuat public/')
       })
       
       fs.mkdir(`${name}/controllers`, () => {
-        console.log(' (+) Membuat controllers')
+        console.log(' (+) Membuat controllers/')
         fs.readFile(`${__dirname}/../templates/controller.txt`, (err, data) => {
+          console.log(' (+) Membuat controllers/Home')
           data = data.toString().replace(/<name>/g, 'Home')
           fs.writeFileSync(`${name}/controllers/Home.js`, data)
         })

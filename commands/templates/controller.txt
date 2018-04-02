@@ -1,3 +1,9 @@
-exports.index = (req, res) => {
-  res.send('<name> Controller.')
+class <name> {
+  Index () {
+    render('Home', {
+      message: 'HamJS berhasil berjalan.'
+    }, 200)
+  }
 }
+
+module.exports = new <name>()
