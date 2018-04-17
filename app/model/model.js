@@ -6,7 +6,7 @@ Object.keys(models).forEach(modelName => {
   const model = {}
   model.create = (oncreate) => {
     model.struct = oncreate
-    let sql = `CREATE TABLE IF NOT EXISTS ${modelName} (id INT PRIMARY KEY AUTO_INCREMENT`
+    let sql = `CREATE TABLE IF NOT EXISTS ${modelName.toLowerCase()} (id INT PRIMARY KEY AUTO_INCREMENT`
     Object.keys(model.struct).forEach(field => {
       let type = ''
       let required = model.struct[field].required ? 'NOT NULL': ''
@@ -65,6 +65,18 @@ Object.keys(models).forEach(modelName => {
     
     db.query(sql, (err, res) => {
       if (err) rej(err)
+      ful(res)
+    })
+  })
+
+  models[modelName].prototype.destroy = (id) => new Promise((ful, rej) => {
+    if (!id)
+      rej(' (!) Id yang akan dihapus tidak boleh dikosongkan.')
+
+    let sql = `DELETE FROM ${modelName.toLowerCase()} WHERE id=${id}`
+
+    db.query(sql, (err, res) => {
+      if(err) rej(err)
       ful(res)
     })
   })
