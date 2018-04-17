@@ -69,6 +69,7 @@ Object.keys(models).forEach(modelName => {
     })
   })
 
+  // Destroy an item
   models[modelName].prototype.destroy = (id) => new Promise((ful, rej) => {
     if (!id)
       rej(' (!) Id yang akan dihapus tidak boleh dikosongkan.')
@@ -77,6 +78,35 @@ Object.keys(models).forEach(modelName => {
 
     db.query(sql, (err, res) => {
       if(err) rej(err)
+      ful(res)
+    })
+  })
+
+  // Update function
+  models[modelName].prototype.update = (id, data) => new Promise((ful, rej) => {
+    if (!id)
+      rej(' (!) Id yang akan diupdate tidak boleh dikosongkan.')
+
+    if (!data || Object.keys(data).length < 1)
+      rej(' (!) Data yang akan disimpan tidak boleh dikosongkan.')
+
+    if (!validate(model.struct, data)) {
+      rej(' (!) Data yang akan disimpan tidak sesuai dengan definisi.')
+    }
+
+    let sql = `UPDATE ${modelName.toLowerCase()} SET `
+
+    Object.keys(data).forEach(field => {
+      sql += `${field}=${data[field]}, `
+    })
+    sql = sql.slice(0, -2)
+
+    sql += ` WHERE id=${id}`
+
+    console.log(sql)
+
+    db.query(sql, (err, res) => {
+      if (err) rej(err)
       ful(res)
     })
   })
