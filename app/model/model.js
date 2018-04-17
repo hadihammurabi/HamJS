@@ -103,16 +103,34 @@ Object.keys(models).forEach(modelName => {
 
     sql += ` WHERE id=${id}`
 
-    console.log(sql)
-
     db.query(sql, (err, res) => {
       if (err) rej(err)
       ful(res)
     })
   })
 
-  models[modelName].prototype.all = () => new Promise((ful, rej) => {
-    db.query(`SELECT * FROM ${modelName.toLowerCase()}`, (err, res) => {
+  // Show an item by id
+  models[modelName].prototype.show = (id) => new Promise((ful, rej) => {
+    if (!id)
+      rej(' (!) Id yang akan dihapus tidak boleh dikosongkan.')
+
+    let sql = `SELECT * FROM ${modelName.toLowerCase()} WHERE id=${id}`
+
+    db.query(sql, (err, res) => {
+      if (err) rej(err)
+      ful(res[0])
+    })
+  })
+
+  // Get all data
+  models[modelName].prototype.all = (where) => new Promise((ful, rej) => {
+    let sql = `SELECT * FROM ${modelName.toLowerCase()}`
+
+    if (where) {
+      sql = `SELECT * FROM ${modelName.toLowerCase()} WHERE ${where}`
+    }
+
+    db.query(sql, (err, res) => {
       if (err) rej(err)
       ful(res)
     })

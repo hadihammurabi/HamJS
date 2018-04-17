@@ -1,5 +1,5 @@
 {
-  "name": "HamJS",
+  "name": "hamjs",
   "version": "1.0.0",
   "description": "HamJS is framework to create NodeJS application.",
   "main": "index.js",
