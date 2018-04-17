@@ -1,6 +1,7 @@
 const db = require('./dbcontext')
 const models = require('./load')
 
+// Load all model from models directory
 Object.keys(models).forEach(modelName => {
   const model = {}
   model.create = (oncreate) => {
@@ -25,6 +26,7 @@ Object.keys(models).forEach(modelName => {
     })
   }
 
+  // Validate input for insert operation
   const validate = (struct, data) => {
     Object.keys(struct).forEach(fieldS => {
       if (struct[fieldS].required) {
@@ -37,6 +39,7 @@ Object.keys(models).forEach(modelName => {
     return true
   }
   
+  // Inserting data
   models[modelName].prototype.create = (data) => new Promise((ful, rej) => {
     if (!data || Object.keys(data).length < 1)
       rej(' (!) Data yang akan disimpan tidak boleh dikosongkan.')
@@ -58,7 +61,7 @@ Object.keys(models).forEach(modelName => {
         sql += `${data[field]}, `
     })
     sql = sql.slice(0, -2)
-    sql += ')'    
+    sql += ')'
     
     db.query(sql, (err, res) => {
       if (err) rej(err)
