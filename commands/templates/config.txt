@@ -4,6 +4,10 @@ exports.app = {
   defaults: {
     controller: 'Home'
   },
+  session: {
+    secret: 'this is the secret',
+    maxAge: 60000
+  },
   onInit({ host, port }) {
     console.log(`<name> Listening on http://${host}:${port}`)
   }

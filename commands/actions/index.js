@@ -48,9 +48,8 @@ exports.create = (name) => {
 }
 
 exports.serve = () => {
-  const config = require(`${root}/ham.config`)
-
   if (fs.readdirSync(root).indexOf('ham.config.js') !== -1) {
+    const config = require(`${root}/ham.config`)
     const express = require('express')
     const app = require('../../app')
 

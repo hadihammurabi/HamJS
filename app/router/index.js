@@ -24,6 +24,7 @@ const controllerHandler = (controller) => {
   return (req, res) => {
     global.req = req
     global.res = res
+
     controller()
   }
 }
