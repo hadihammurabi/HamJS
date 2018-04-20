@@ -19,7 +19,10 @@ const setup = (config) => {
 
 module.exports = (config) => {
   setup(config)
+
+  // Dependencies
   const session = require('express-session')
+  const bodyParser = require('body-parser')
 
   const app = config.express()
 
@@ -44,6 +47,12 @@ module.exports = (config) => {
     res.set('X-Powered-By', 'HamJS')
     next()
   })
+
+  // Set body parser
+  app.use(bodyParser.json())
+  app.use(bodyParser.urlencoded({
+    extended: true
+  }))
 
   // Set static/public directory
   app.use(config.express.static(`${config.root}/public`))
