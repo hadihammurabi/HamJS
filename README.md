@@ -4,12 +4,12 @@
 
 **Using NPM**
 ```bash
-npm install 'https://github.com/robisemicolon/HamJS' -g
+npm install 'https://github.com/hadihammurabi/HamJS' -g
 ```
 
 **Using Yarnpkg**
 ```bash
-yarn global add 'https://github.com/robisemicolon/HamJS'
+yarn global add 'https://github.com/hadihammurabi/HamJS'
 ```
 
 ## Using CLI
